@@ -20,6 +20,18 @@ timeout = 30
 __EOF__
 __DOCKER_EOF__
 
+### nginx healthcheck
+RUN <<__DOCKER_EOF__
+cat <<__EOF__ > /etc/nginx/conf.d/healthcheck.conf
+server {
+    listen 80;
+    location /health {
+        return 200;
+    }
+}
+__EOF__
+__DOCKER_EOF__
+
 ### start script
 RUN <<__DOCKER_EOF__
 cat <<__EOF__ > /start
