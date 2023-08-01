@@ -24,7 +24,9 @@ __DOCKER_EOF__
 RUN <<__DOCKER_EOF__
 cat <<__EOF__ > /etc/nginx/conf.d/healthcheck.conf
 server {
-    listen 80;
+    listen       81;
+    server_name  localhost;
+
     location /health {
         return 200;
     }
@@ -39,7 +41,7 @@ cat <<__EOF__ > /start
 rsync --daemon --config /etc/rsyncd.conf --log-file=/var/log/rsyncd.log
 nginx
 
-tail -f /var/log/rsyncd.log /var/log/nginx/access.log /var/log/nginx/error.log
+exec tail -f /var/log/rsyncd.log /var/log/nginx/access.log /var/log/nginx/error.log
 __EOF__
 __DOCKER_EOF__
 
