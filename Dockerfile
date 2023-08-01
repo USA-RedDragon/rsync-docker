@@ -10,8 +10,10 @@ cat <<__EOF__ > /etc/rsyncd.conf
 # See rsync(1) and rsyncd.conf(5) man pages for help.
 # Do not set "pid file" here.
 
-use chroot = yes
-read only = yes
+use chroot = no
+read only = no
+uid = root
+gid = root
 
 [data]
 path = /usr/share/nginx/html
@@ -38,6 +40,13 @@ __DOCKER_EOF__
 RUN <<__DOCKER_EOF__
 cat <<__EOF__ > /start
 #!/bin/sh
+mkdir -p /usr/share/nginx/html
+chmod a+x /usr/share/nginx
+chmod a+x /usr/share/nginx/html
+chmod a+r /usr/share/nginx
+chmod a+r /usr/share/nginx/html
+chmod g+r /usr/share/nginx/html
+
 rsync --daemon --config /etc/rsyncd.conf --log-file=/var/log/rsyncd.log
 nginx
 
