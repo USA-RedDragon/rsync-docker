@@ -1,4 +1,4 @@
-FROM nginx:1.25-alpine
+FROM nginx:mainline-alpine@sha256:9d749f4c66e206398d0c2d667b2b14c201cc4fd089419245c14a031b9368de3a
 
 RUN apk add --no-cache rsync
 
@@ -12,13 +12,13 @@ cat <<__EOF__ > /etc/rsyncd.conf
 
 use chroot = no
 read only = no
-uid = root
-gid = root
 
 [data]
 path = /usr/share/nginx/html
 read only = no
 timeout = 30
+uid = root
+gid = root
 __EOF__
 __DOCKER_EOF__
 
