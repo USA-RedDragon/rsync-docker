@@ -1,4 +1,4 @@
-FROM nginx:mainline-alpine@sha256:9d749f4c66e206398d0c2d667b2b14c201cc4fd089419245c14a031b9368de3a
+FROM nginx:mainline-alpine@sha256:7ba6006df2033690d8c64bd8df69e4a1957b78e57b4e32141c78d72a5e0de63d
 
 RUN apk add --no-cache rsync
 
